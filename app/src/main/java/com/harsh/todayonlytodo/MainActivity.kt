@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import com.harsh.todayonlytodo.di.AppModule
 import com.harsh.todayonlytodo.presentation.TodoViewModel
 import com.harsh.todayonlytodo.presentation.TodoViewModelFactory
+import com.harsh.todayonlytodo.presentation.screen.TodayTodoScreen
 import com.harsh.todayonlytodo.ui.theme.TodayOnlyTodoTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,12 +20,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             TodayOnlyTodoTheme {
-                TodayTodoApp(
-                    viewModel = todoViewModel
-                )
+                TodayTodoScreen(viewModel = todoViewModel)
             }
         }
     }

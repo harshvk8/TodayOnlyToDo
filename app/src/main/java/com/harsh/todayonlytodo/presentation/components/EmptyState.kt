@@ -2,7 +2,9 @@ package com.harsh.todayonlytodo.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,20 +18,21 @@ import androidx.compose.ui.unit.dp
 fun EmptyState() {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 64.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .fillMaxSize()
+            .padding(32.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "No tasks for today",
-            style = MaterialTheme.typography.titleMedium
+            text = "Nothing for today yet",
+            style = MaterialTheme.typography.titleMedium,
+            textAlign = TextAlign.Center
         )
-
+        Spacer(Modifier.height(8.dp))
         Text(
-            text = "Add something you want to finish before the day ends.",
-            modifier = Modifier.padding(top = 8.dp),
+            text = "Add a task above to get started. Today's tasks reset at midnight.",
             style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
         )
     }

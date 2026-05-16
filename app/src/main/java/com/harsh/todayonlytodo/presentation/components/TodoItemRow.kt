@@ -1,9 +1,9 @@
 package com.harsh.todayonlytodo.presentation.components
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,29 +17,23 @@ import com.harsh.todayonlytodo.domain.model.Todo
 @Composable
 fun TodoItemRow(
     todo: Todo,
-    onCheckedChange: (Boolean) -> Unit
+    onToggle: (Boolean) -> Unit
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 6.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Checkbox(
-            checked = todo.isComplete,
-            onCheckedChange = onCheckedChange
-        )
-
-        Text(
-            text = todo.title,
-            style = MaterialTheme.typography.bodyLarge.copy(
-                textDecoration = if (todo.isComplete) {
-                    TextDecoration.LineThrough
-                } else {
-                    TextDecoration.None
-                }
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(checked = todo.isComplete, onCheckedChange = onToggle)
+            Text(
+                text = todo.title,
+                style = MaterialTheme.typography.bodyLarge,
+                textDecoration = if (todo.isComplete) TextDecoration.LineThrough else null,
+                color = if (todo.isComplete) MaterialTheme.colorScheme.onSurfaceVariant
+                else MaterialTheme.colorScheme.onSurface
             )
-        )
+        }
     }
 }
