@@ -12,9 +12,9 @@ Tasks belong only to the current day. Tasks from previous days are not shown in 
 
 ## Overview
 
-This project is a fully offline Android todo app focused on daily task tracking. Users can add tasks for the current day, mark tasks as complete, and close/reopen the app without losing their tasks because the data is persisted locally.
+This project is a fully offline Android todo app focused on daily task tracking. Users can add tasks for the current day, mark tasks as complete, and close/reopen the app without losing today’s tasks because the data is persisted locally.
 
-The app intentionally does not support future scheduling, accounts, authentication, or online syncing. This keeps the project focused on the core requirement: managing tasks that only exist for the current day.
+The app intentionally does not support future scheduling, accounts, authentication, backend services, or online syncing. This keeps the project focused on the core requirement: managing tasks that only exist for the current day.
 
 ---
 
@@ -39,7 +39,7 @@ The app intentionally does not support future scheduling, accounts, authenticati
 - Clean Compose UI
 - Light and dark mode support
 - Clear separation between UI, state, data, and date logic
-- Date abstraction to make today-only logic easier to test
+- Date abstraction to make today-only logic easier to test and maintain
 
 ---
 
@@ -48,8 +48,8 @@ The app intentionally does not support future scheduling, accounts, authenticati
 - **Language:** Kotlin
 - **UI:** Jetpack Compose
 - **Architecture:** MVVM-style structure
-- **Local Persistence:** Room Database
-- **State Management:** ViewModel + StateFlow
+- **Local Persistence:** Local offline storage
+- **State Management:** ViewModel
 - **Minimum SDK:** API 28
 - **Network:** None
 
@@ -59,22 +59,24 @@ The app intentionally does not support future scheduling, accounts, authenticati
 
 ```text
 app/
-└── src/main/java/com/example/todaytodo/
+└── src/main/java/com/harsh/todayonlytodo/
     │
     ├── MainActivity.kt
     ├── TodayTodoApp.kt
     │
     ├── data/
     │   ├── local/
-    │   │   ├── TodoDao.kt
-    │   │   ├── TodoDatabase.kt
-    │   │   └── TodoEntity.kt
+    │   │   ├── TodoEntity.kt
+    │   │   └── TodoLocalDataSource.kt
     │   │
     │   ├── mapper/
     │   │   └── TodoMapper.kt
     │   │
     │   └── repository/
     │       └── TodoRepositoryImpl.kt
+    │
+    ├── di/
+    │   └── AppModule.kt
     │
     ├── domain/
     │   ├── model/
@@ -103,3 +105,9 @@ app/
         ├── Color.kt
         ├── Theme.kt
         └── Type.kt
+```
+---
+
+## Persistence Behavior
+
+Tasks are persisted locally on the device. If the user closes and reopens the app on the same day, today’s tasks remain available. When the date changes, tasks from the previous day are no longer shown in the main list, so the app starts the new day with a clean slate.
